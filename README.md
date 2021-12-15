@@ -3,5 +3,5 @@ Building simple Decentralized Finance Application using (Angular, Ethereum, Soli
 
 ### Dependancies
 ``` bash
-node.js , Genache, TRUFFLE, MetaMask
+node.js , Ganache, TRUFFLE, MetaMask
 ```
