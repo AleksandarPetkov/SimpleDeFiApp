@@ -20,6 +20,6 @@ module.exports = async function (deployer, network, accounts) {
   //Transferr all Tokens to Farm Token
   await dappToken.transfer(farmToken.address, '1000000000000000000000000');
   
-  //Transferr Mock Dai Token to Investor
+  //Transferr Mock Dai Token to Investor -> [Local Ganache second account]
   await daiToken.transfer(accounts[1], '1000000000000000000000000');
 };
