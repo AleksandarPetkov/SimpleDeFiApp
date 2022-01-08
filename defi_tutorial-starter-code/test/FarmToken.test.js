@@ -68,6 +68,14 @@ contract('FarmToken', ([owner, investor]) => {
          //Check user DAI balance after staking
          userBalance = await daiToken.balanceOf(investor);
          assert.equal(userBalance.toString(), tokens('0'));
+
+         //Check is client receive Dapp Token as interest
+         await tokenFarm.receiveDappTokenInterest({from : owner});
+         userBalance = await dappToken.balanceOf(investor);
+         assert.equal(userBalance.toString(), tokens('100'));
+
+         //Ensure that only owner can call the receiveDappTokenInterest function
+         await tokenFarm.receiveDappTokenInterest({from : investor}).should.be.rejected;
       })
    })
 })
