@@ -1,3 +1,5 @@
+const { assert } = require('chai');
+
 const FarmToken = artifacts.require('FarmToken');
 const DappToken = artifacts.require('DappToken');
 const DaiToken = artifacts.require('DaiToken');
@@ -49,6 +51,23 @@ contract('FarmToken', ([owner, investor]) => {
       it('contract has tokens', async () => {
          let balance = await dappToken.balanceOf(tokenFarm.address);
          assert.equal(balance.toString(), tokens('1000000'));
+      })
+   })
+
+   describe('Staking tokens', async () => {
+      it('Client successfully staking', async () => {
+
+         //Check investor balance Before staking
+         let userBalance = await daiToken.balanceOf(investor);
+         assert.equal(userBalance.toString(), tokens('100'));
+
+         //Stake Mock DAI token
+         await daiToken.approve(tokenFarm.address, tokens('100'), { from : investor });
+         await tokenFarm.stakeTokens(tokens('100'), {from : investor});
+
+         //Check user DAI balance after staking
+         userBalance = await daiToken.balanceOf(investor);
+         assert.equal(userBalance.toString(), tokens('0'));
       })
    })
 })
