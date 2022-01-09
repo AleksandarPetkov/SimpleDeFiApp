@@ -51,4 +51,14 @@ contract FarmToken {
             }         
         }
     }
+
+    function unstakeTokens() public {
+        uint balance = stakingBalance[msg.sender];
+        require(balance > 0, "amount cannot be 0");
+
+        daiToken.transfer(msg.sender, balance);
+        
+        stakingBalance[msg.sender] = 0;
+        currentStakingStatus[msg.sender] = false;
+    }
 }

@@ -61,7 +61,7 @@ contract('FarmToken', ([owner, investor]) => {
          let userBalance = await daiToken.balanceOf(investor);
          assert.equal(userBalance.toString(), tokens('100'));
 
-         //Stake Mock DAI token
+         //Check Stake Mock DAI token
          await daiToken.approve(tokenFarm.address, tokens('100'), { from : investor });
          await tokenFarm.stakeTokens(tokens('100'), {from : investor});
 
@@ -74,8 +74,23 @@ contract('FarmToken', ([owner, investor]) => {
          userBalance = await dappToken.balanceOf(investor);
          assert.equal(userBalance.toString(), tokens('100'));
 
-         //Ensure that only owner can call the receiveDappTokenInterest function
+         //Check ensure that only owner can call the receiveDappTokenInterest function
          await tokenFarm.receiveDappTokenInterest({from : investor}).should.be.rejected;
+
+         //Check Unstake tokens function
+         await tokenFarm.unstakeTokens({from : investor});
+
+         userBalance = await daiToken.balanceOf(investor);
+         assert.equal(userBalance.toString(), tokens('100'));
+
+         let balance = await daiToken.balanceOf(tokenFarm.address);
+         assert.equal(balance.toString(), tokens('0'));
+
+         userBalance = await tokenFarm.stakingBalance(investor);
+         assert.equal(userBalance.toString(), tokens('0'));
+
+         let isStaking = await tokenFarm.currentStakingStatus(investor);
+         assert.equal(isStaking.toString(), 'false');
       })
    })
 })
