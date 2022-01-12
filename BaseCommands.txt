@@ -1,0 +1,19 @@
+* Application purpose:
+  Client stakes (deposid) DAI token in our digital bank (FarmToken). While DAI tokens are staked in the platform the cleint earn DAP token as interest.
+
+* GiT
+ -Dependancies => node.js, Ganache, TRUFFLE, React, MetaMask
+ 
+* Files:
+ package.json      => keeps all dependancies web3, truffle, react and so no..
+ truffle-config.js => connect truffle project on the block chain(in my case connect to ganache)
+ test => 'chain' and 'mocha' Test librariries are defined in package.json
+ 
+* Comands:
+ npm install --g truffle@5.1.39
+ npm install
+ truffle compile  (Complile smart contracts) : First "complile" after that "migrate" to the block chain
+ truffle migrate --reset  (Deploy to block chain) : using '--reset' we REPLACE deployed smart contract 
+ truffle console  (View contract) ('Truffle console is js run time envirament and let me to use block chain') =>  'nameToken' = await 'TOkenName'.deployed()
+ truffle test  (Run tests declared in test/FarmToken.test.js)
+ truffle exec scripts/file.js  (Execute custom script, path to the file needed)
